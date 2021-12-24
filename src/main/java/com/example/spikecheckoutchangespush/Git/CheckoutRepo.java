@@ -16,7 +16,8 @@ public class CheckoutRepo {
 
         Git.cloneRepository()
                 .setURI("https://truongvanhieu291014@dev.azure.com/truongvanhieu291014/truongvanhieu291014/_git/Spike-Checkout-Change-Push")
-                .setDirectory(new File("D:/IntelliJ/Project/Spring-boot"))
+                .setBranch("main")
+                .setDirectory(new File("D:/IntelliJ/Project/Spring-boot-1"))
                 .setCredentialsProvider(cp)
                 .call();
     }
