@@ -15,14 +15,14 @@ public class createBranch {
             Repository repository = git.getRepository();
 
             //create new branch
-            git.branchCreate().setName("test").call();
+            git.branchCreate().setName("test2").call();
             //checkout new branch
-            git.checkout().setName("test").call();
+            git.checkout().setName("test2").call();
 
             //back to main brand and delete branch
 
 //            git.checkout().setName("main").call();
-//            git.branchDelete().setBranchNames("test").call();
+//            git.branchDelete().setBranchNames("test2").setForce(true).call();
 
         } catch (IOException e) {
             e.printStackTrace();

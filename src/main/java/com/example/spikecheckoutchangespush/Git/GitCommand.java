@@ -23,14 +23,10 @@ public class GitCommand {
                 .call();
     }
 
-    public static void commitToRepo(String fileDir, String addFileCommit, String msgCommit, String branch) {
+    public static void commitToRepo(String fileDir, String addFileCommit, String msgCommit) {
 
         try (Git git = Git.open(new File(fileDir))) {
             Repository repository = git.getRepository();
-
-            if (branch != null && !branch.trim().equals("")) {
-                git.checkout().setName(branch).call();
-            }
 
             git.add().addFilepattern(addFileCommit).call();
             git.commit().setMessage(msgCommit).call();
@@ -64,14 +60,10 @@ public class GitCommand {
     }
 
     public static void commitAndPushToRepo(String username, String password, String fileDir,
-                                           String addFileCommit, String msgCommit, String branch) {
+                                           String addFileCommit, String msgCommit) {
         CredentialsProvider cp = new UsernamePasswordCredentialsProvider(username, password);
         try (Git git = Git.open(new File(fileDir))) {
             Repository repository = git.getRepository();
-
-            if (branch != null && !branch.trim().equals("")) {
-                git.checkout().setName(branch).call();
-            }
 
             git.add().addFilepattern(addFileCommit).call();
             git.commit().setMessage(msgCommit).call();
@@ -88,9 +80,9 @@ public class GitCommand {
         }
     }
 
-    public static void createBranch(String gitFileDir, String newBranch){
+    public static void createBranch(String gitFileDir, String newBranch) {
         //get existing repo
-        try(Git git = Git.open(new File(gitFileDir))){
+        try (Git git = Git.open(new File(gitFileDir))) {
             Repository repository = git.getRepository();
 
             //create new branch
@@ -107,12 +99,12 @@ public class GitCommand {
         }
     }
 
-    public static void deleteBrand(String gitFileDir, String checkoutBranch, String deleteBranch){
-        try(Git git = Git.open(new File(gitFileDir))){
+    public static void deleteBrand(String gitFileDir, String checkoutBranch, String deleteBranch) {
+        try (Git git = Git.open(new File(gitFileDir))) {
             Repository repository = git.getRepository();
 
             git.checkout().setName(checkoutBranch).call();
-            git.branchDelete().setBranchNames(deleteBranch).call();
+//            git.branchDelete().setBranchNames(deleteBranch).call();
 
         } catch (IOException e) {
             e.printStackTrace();
