@@ -14,7 +14,7 @@ public class Push {
     public static void main(String[] args) throws IOException {
         CredentialsProvider cp = new UsernamePasswordCredentialsProvider(
                 "truongvanhieu291014",
-                "767yitwaqtandahekql3d2fm4dc2fktiyn5quurdgyfsuvjobtha");
+                "c3gvoxnqyv6zotjv3lkbjasz3zmuom7rt7b4gxqof35vgcypo7ka");
         //get existing repo
         Git git = Git.open(new File("D:/IntelliJ/Project/Spring-boot"));
         try{
