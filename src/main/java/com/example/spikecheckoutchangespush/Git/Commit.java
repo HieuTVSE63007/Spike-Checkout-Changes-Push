@@ -24,31 +24,25 @@ public class Commit {
     public static void main(String[] args) throws IOException {
         //get existing repo
         String gitFileDir = "D:/IntelliJ/Project/Spring-boot";
+        String username = "truongvanhieu291014";
+        String password = "c3gvoxnqyv6zotjv3lkbjasz3zmuom7rt7b4gxqof35vgcypo7ka";
         Git git = Git.open(new File(gitFileDir));
         try {
             Repository repository = git.getRepository();
 
-            Status status = git.status().call();
-//            System.out.println("Changes not staged for commit:");
-//            for (String modified : status.getModified()){
-//                System.out.println("\tModified file: " + modified);
-//            }
-            ObjectReader reader = git.getRepository().newObjectReader();
+            //get status
+            List<DiffEntry> entries = GitCommand.status(gitFileDir);
 
-            CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
-            ObjectId oldTree = git.getRepository().resolve("HEAD~1^{tree}");
-            oldTreeIter.reset(reader, oldTree);
-
-            CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
-            ObjectId newTree = git.getRepository().resolve("HEAD^{tree}");
-            newTreeIter.reset(reader, newTree);
-
-            DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
-            diffFormatter.setRepository(git.getRepository());
-            List<DiffEntry> entries = diffFormatter.scan(oldTreeIter, newTreeIter);
-
+            //git add and commit
             git.add().addFilepattern(".").call();
             git.commit().setMessage("New commit").call();
+
+            String push = GitCommand.pushToRepo(username, password, gitFileDir);
+            if (push != null) {
+                System.out.println(push);
+            } else {
+                System.out.println("Success");
+            }
 
             for (DiffEntry entry : entries) {
                 System.out.println("\t" + entry.getChangeType() + ": " + entry.getNewPath());
